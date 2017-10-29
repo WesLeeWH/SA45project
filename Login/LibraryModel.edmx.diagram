@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7d8abfab99b64816a2485e0978c3771e" Name="Diagram1">
+        <EntityTypeShape EntityType="SA45Team03BModel.Author" Width="1.5" PointX="5.125" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.Book" Width="1.5" PointX="2.625" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.Country" Width="1.5" PointX="8.625" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.Customer" Width="1.5" PointX="2.625" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.Employee" Width="1.5" PointX="0.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.ExtendApplication" Width="1.5" PointX="7.125" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.IssueTran" Width="1.5" PointX="4.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.PaymentTran" Width="1.5" PointX="7.125" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.Publisher" Width="1.5" PointX="5.375" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SA45Team03BModel.User" Width="1.5" PointX="0.5" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="SA45Team03BModel.FK__Publisher__Count__34C8D9D1" />
+        <AssociationConnector Association="SA45Team03BModel.FK__Author__CountryC__35BCFE0A" />
+        <AssociationConnector Association="SA45Team03BModel.FK__Book__AuthorID__37A5467C" />
+        <AssociationConnector Association="SA45Team03BModel.FK__Book__CountryCod__36B12243" />
+        <AssociationConnector Association="SA45Team03BModel.FK__Book__PublisherI__398D8EEE" />
+        <AssociationConnector Association="SA45Team03BModel.FK__IssueTran__BookC__3B75D760" />
+        <AssociationConnector Association="SA45Team03BModel.FK__IssueTran__Custo__3A81B327" />
+        <AssociationConnector Association="SA45Team03BModel.FK__ExtendApp__Trans__3D5E1FD2" />
+        <AssociationConnector Association="SA45Team03BModel.FK__PaymentTr__Trans__3C69FB99" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SA45Team03BModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="AuthorID" />
+          </Key>
+          <Property Name="AuthorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorName" Type="nvarchar" MaxLength="30" />
+          <Property Name="CountryCode" Type="int" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookCode" />
+          </Key>
+          <Property Name="BookCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="BookCategory" Type="nvarchar" MaxLength="20" />
+          <Property Name="Rating" Type="nvarchar" MaxLength="3" />
+          <Property Name="Location" Type="nvarchar" MaxLength="30" />
+          <Property Name="AuthorID" Type="int" />
+          <Property Name="PublisherID" Type="int" />
+          <Property Name="CountryCode" Type="int" />
+          <Property Name="TotalStock" Type="int" />
+          <Property Name="NumberAvaliable" Type="int" />
+          <Property Name="NumberRented" Type="int" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryCode" />
+          </Key>
+          <Property Name="CountryCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerCategory" Type="nvarchar" MaxLength="20" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="65" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="6" />
+          <Property Name="ContactTitle" Type="nvarchar" MaxLength="2" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="9" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee" />
+          </Key>
+          <Property Name="Employee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="10" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Salary" Type="float" />
+        </EntityType>
+        <EntityType Name="ExtendApplication">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionID" Type="int" />
+          <Property Name="ExtendDays" Type="int" />
+          <Property Name="IsApproved" Type="nvarchar" MaxLength="5" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="IssueTran">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="BookCode" Type="int" />
+          <Property Name="DateIssue" Type="datetime" />
+          <Property Name="DateDue" Type="datetime" />
+          <Property Name="DateActualReturn" Type="datetime" />
+          <Property Name="RentailStatus" Type="nvarchar" MaxLength="3" />
+          <Property Name="IsLate" Type="nvarchar" MaxLength="5" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PaymentTran">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionID" Type="int" />
+          <Property Name="Fee" Type="float" />
+          <Property Name="IsPaid" Type="nvarchar" MaxLength="5" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="PublisherID" />
+          </Key>
+          <Property Name="PublisherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublisherName" Type="nvarchar" MaxLength="15" />
+          <Property Name="CountryCode" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserType" Type="nvarchar" MaxLength="8" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Author__CountryC__35BCFE0A">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Author" Type="Self.Author" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Author">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__AuthorID__37A5467C">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__CountryCod__36B12243">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__PublisherI__398D8EEE">
+          <End Role="Publisher" Type="Self.Publisher" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="PublisherID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="PublisherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExtendApp__Trans__3D5E1FD2">
+          <End Role="IssueTran" Type="Self.IssueTran" Multiplicity="0..1" />
+          <End Role="ExtendApplication" Type="Self.ExtendApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IssueTran">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="ExtendApplication">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IssueTran__BookC__3B75D760">
+          <End Role="Book" Type="Self.Book" Multiplicity="0..1" />
+          <End Role="IssueTran" Type="Self.IssueTran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookCode" />
+            </Principal>
+            <Dependent Role="IssueTran">
+              <PropertyRef Name="BookCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IssueTran__Custo__3A81B327">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="IssueTran" Type="Self.IssueTran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="IssueTran">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PaymentTr__Trans__3C69FB99">
+          <End Role="IssueTran" Type="Self.IssueTran" Multiplicity="0..1" />
+          <End Role="PaymentTran" Type="Self.PaymentTran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IssueTran">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="PaymentTran">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Publisher__Count__34C8D9D1">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Publisher" Type="Self.Publisher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Publisher">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SA45Team03BModelStoreContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExtendApplication" EntityType="Self.ExtendApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IssueTran" EntityType="Self.IssueTran" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentTran" EntityType="Self.PaymentTran" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Publisher" EntityType="Self.Publisher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Author__CountryC__35BCFE0A" Association="Self.FK__Author__CountryC__35BCFE0A">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Author" EntitySet="Author" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__AuthorID__37A5467C" Association="Self.FK__Book__AuthorID__37A5467C">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__CountryCod__36B12243" Association="Self.FK__Book__CountryCod__36B12243">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__PublisherI__398D8EEE" Association="Self.FK__Book__PublisherI__398D8EEE">
+            <End Role="Publisher" EntitySet="Publisher" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExtendApp__Trans__3D5E1FD2" Association="Self.FK__ExtendApp__Trans__3D5E1FD2">
+            <End Role="IssueTran" EntitySet="IssueTran" />
+            <End Role="ExtendApplication" EntitySet="ExtendApplication" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IssueTran__BookC__3B75D760" Association="Self.FK__IssueTran__BookC__3B75D760">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="IssueTran" EntitySet="IssueTran" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IssueTran__Custo__3A81B327" Association="Self.FK__IssueTran__Custo__3A81B327">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="IssueTran" EntitySet="IssueTran" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PaymentTr__Trans__3C69FB99" Association="Self.FK__PaymentTr__Trans__3C69FB99">
+            <End Role="IssueTran" EntitySet="IssueTran" />
+            <End Role="PaymentTran" EntitySet="PaymentTran" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Publisher__Count__34C8D9D1" Association="Self.FK__Publisher__Count__34C8D9D1">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Publisher" EntitySet="Publisher" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SA45Team03BModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="AuthorID" />
+          </Key>
+          <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCode" Type="Int32" />
+          <NavigationProperty Name="Country" Relationship="SA45Team03BModel.FK__Author__CountryC__35BCFE0A" FromRole="Author" ToRole="Country" />
+          <NavigationProperty Name="Books" Relationship="SA45Team03BModel.FK__Book__AuthorID__37A5467C" FromRole="Author" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="BookCode" />
+          </Key>
+          <Property Name="BookCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BookCategory" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="AuthorID" Type="Int32" />
+          <Property Name="PublisherID" Type="Int32" />
+          <Property Name="CountryCode" Type="Int32" />
+          <Property Name="TotalStock" Type="Int32" />
+          <Property Name="NumberAvaliable" Type="Int32" />
+          <Property Name="NumberRented" Type="Int32" />
+          <NavigationProperty Name="Author" Relationship="SA45Team03BModel.FK__Book__AuthorID__37A5467C" FromRole="Book" ToRole="Author" />
+          <NavigationProperty Name="Country" Relationship="SA45Team03BModel.FK__Book__CountryCod__36B12243" FromRole="Book" ToRole="Country" />
+          <NavigationProperty Name="Publisher" Relationship="SA45Team03BModel.FK__Book__PublisherI__398D8EEE" FromRole="Book" ToRole="Publisher" />
+          <NavigationProperty Name="IssueTrans" Relationship="SA45Team03BModel.FK__IssueTran__BookC__3B75D760" FromRole="Book" ToRole="IssueTran" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryCode" />
+          </Key>
+          <Property Name="CountryCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Publishers" Relationship="SA45Team03BModel.FK__Publisher__Count__34C8D9D1" FromRole="Country" ToRole="Publisher" />
+          <NavigationProperty Name="Authors" Relationship="SA45Team03BModel.FK__Author__CountryC__35BCFE0A" FromRole="Country" ToRole="Author" />
+          <NavigationProperty Name="Books" Relationship="SA45Team03BModel.FK__Book__CountryCod__36B12243" FromRole="Country" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerCategory" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="65" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="ContactTitle" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IssueTrans" Relationship="SA45Team03BModel.FK__IssueTran__Custo__3A81B327" FromRole="Customer" ToRole="IssueTran" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee1" />
+          </Key>
+          <Property Name="Employee1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Salary" Type="Double" />
+        </EntityType>
+        <EntityType Name="ExtendApplication">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionID" Type="Int32" />
+          <Property Name="ExtendDays" Type="Int32" />
+          <Property Name="IsApproved" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IssueTran" Relationship="SA45Team03BModel.FK__ExtendApp__Trans__3D5E1FD2" FromRole="ExtendApplication" ToRole="IssueTran" />
+        </EntityType>
+        <EntityType Name="IssueTran">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="BookCode" Type="Int32" />
+          <Property Name="DateIssue" Type="DateTime" Precision="3" />
+          <Property Name="DateDue" Type="DateTime" Precision="3" />
+          <Property Name="DateActualReturn" Type="DateTime" Precision="3" />
+          <Property Name="RentailStatus" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="IsLate" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Book" Relationship="SA45Team03BModel.FK__IssueTran__BookC__3B75D760" FromRole="IssueTran" ToRole="Book" />
+          <NavigationProperty Name="Customer" Relationship="SA45Team03BModel.FK__IssueTran__Custo__3A81B327" FromRole="IssueTran" ToRole="Customer" />
+          <NavigationProperty Name="ExtendApplications" Relationship="SA45Team03BModel.FK__ExtendApp__Trans__3D5E1FD2" FromRole="IssueTran" ToRole="ExtendApplication" />
+          <NavigationProperty Name="PaymentTrans" Relationship="SA45Team03BModel.FK__PaymentTr__Trans__3C69FB99" FromRole="IssueTran" ToRole="PaymentTran" />
+        </EntityType>
+        <EntityType Name="PaymentTran">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionID" Type="Int32" />
+          <Property Name="Fee" Type="Double" />
+          <Property Name="IsPaid" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IssueTran" Relationship="SA45Team03BModel.FK__PaymentTr__Trans__3C69FB99" FromRole="PaymentTran" ToRole="IssueTran" />
+        </EntityType>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="PublisherID" />
+          </Key>
+          <Property Name="PublisherID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublisherName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CountryCode" Type="Int32" />
+          <NavigationProperty Name="Country" Relationship="SA45Team03BModel.FK__Publisher__Count__34C8D9D1" FromRole="Publisher" ToRole="Country" />
+          <NavigationProperty Name="Books" Relationship="SA45Team03BModel.FK__Book__PublisherI__398D8EEE" FromRole="Publisher" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="SA45Team03BEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Authors" EntityType="Self.Author" />
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="ExtendApplications" EntityType="Self.ExtendApplication" />
+          <EntitySet Name="IssueTrans" EntityType="Self.IssueTran" />
+          <EntitySet Name="PaymentTrans" EntityType="Self.PaymentTran" />
+          <EntitySet Name="Publishers" EntityType="Self.Publisher" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Publisher__Count__34C8D9D1" Association="SA45Team03BModel.FK__Publisher__Count__34C8D9D1">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Publisher" EntitySet="Publishers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Author__CountryC__35BCFE0A" Association="SA45Team03BModel.FK__Author__CountryC__35BCFE0A">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Author" EntitySet="Authors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__AuthorID__37A5467C" Association="SA45Team03BModel.FK__Book__AuthorID__37A5467C">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__CountryCod__36B12243" Association="SA45Team03BModel.FK__Book__CountryCod__36B12243">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Book__PublisherI__398D8EEE" Association="SA45Team03BModel.FK__Book__PublisherI__398D8EEE">
+            <End Role="Publisher" EntitySet="Publishers" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IssueTran__BookC__3B75D760" Association="SA45Team03BModel.FK__IssueTran__BookC__3B75D760">
+            <End Role="Book" EntitySet="Books" />
+            <End Role="IssueTran" EntitySet="IssueTrans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IssueTran__Custo__3A81B327" Association="SA45Team03BModel.FK__IssueTran__Custo__3A81B327">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="IssueTran" EntitySet="IssueTrans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExtendApp__Trans__3D5E1FD2" Association="SA45Team03BModel.FK__ExtendApp__Trans__3D5E1FD2">
+            <End Role="IssueTran" EntitySet="IssueTrans" />
+            <End Role="ExtendApplication" EntitySet="ExtendApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PaymentTr__Trans__3C69FB99" Association="SA45Team03BModel.FK__PaymentTr__Trans__3C69FB99">
+            <End Role="IssueTran" EntitySet="IssueTrans" />
+            <End Role="PaymentTran" EntitySet="PaymentTrans" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__Publisher__Count__34C8D9D1">
+          <End Type="SA45Team03BModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.Publisher" Role="Publisher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Publisher">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Author__CountryC__35BCFE0A">
+          <End Type="SA45Team03BModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.Author" Role="Author" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Author">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__AuthorID__37A5467C">
+          <End Type="SA45Team03BModel.Author" Role="Author" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__CountryCod__36B12243">
+          <End Type="SA45Team03BModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryCode" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="CountryCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Book__PublisherI__398D8EEE">
+          <End Type="SA45Team03BModel.Publisher" Role="Publisher" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="PublisherID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="PublisherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IssueTran__BookC__3B75D760">
+          <End Type="SA45Team03BModel.Book" Role="Book" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.IssueTran" Role="IssueTran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="BookCode" />
+            </Principal>
+            <Dependent Role="IssueTran">
+              <PropertyRef Name="BookCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IssueTran__Custo__3A81B327">
+          <End Type="SA45Team03BModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.IssueTran" Role="IssueTran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="IssueTran">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExtendApp__Trans__3D5E1FD2">
+          <End Type="SA45Team03BModel.IssueTran" Role="IssueTran" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.ExtendApplication" Role="ExtendApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IssueTran">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="ExtendApplication">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PaymentTr__Trans__3C69FB99">
+          <End Type="SA45Team03BModel.IssueTran" Role="IssueTran" Multiplicity="0..1" />
+          <End Type="SA45Team03BModel.PaymentTran" Role="PaymentTran" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IssueTran">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="PaymentTran">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SA45Team03BModelStoreContainer" CdmEntityContainer="SA45Team03BEntities">
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="SA45Team03BModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="SA45Team03BModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="BookCode" ColumnName="BookCode" />
+                <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
+                <ScalarProperty Name="BookCategory" ColumnName="BookCategory" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="PublisherID" ColumnName="PublisherID" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="TotalStock" ColumnName="TotalStock" />
+                <ScalarProperty Name="NumberAvaliable" ColumnName="NumberAvaliable" />
+                <ScalarProperty Name="NumberRented" ColumnName="NumberRented" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="SA45Team03BModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="SA45Team03BModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerCategory" ColumnName="CustomerCategory" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="SA45Team03BModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Employee1" ColumnName="Employee" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExtendApplications">
+            <EntityTypeMapping TypeName="SA45Team03BModel.ExtendApplication">
+              <MappingFragment StoreEntitySet="ExtendApplication">
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="ExtendDays" ColumnName="ExtendDays" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IssueTrans">
+            <EntityTypeMapping TypeName="SA45Team03BModel.IssueTran">
+              <MappingFragment StoreEntitySet="IssueTran">
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="BookCode" ColumnName="BookCode" />
+                <ScalarProperty Name="DateIssue" ColumnName="DateIssue" />
+                <ScalarProperty Name="DateDue" ColumnName="DateDue" />
+                <ScalarProperty Name="DateActualReturn" ColumnName="DateActualReturn" />
+                <ScalarProperty Name="RentailStatus" ColumnName="RentailStatus" />
+                <ScalarProperty Name="IsLate" ColumnName="IsLate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTrans">
+            <EntityTypeMapping TypeName="SA45Team03BModel.PaymentTran">
+              <MappingFragment StoreEntitySet="PaymentTran">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="Fee" ColumnName="Fee" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishers">
+            <EntityTypeMapping TypeName="SA45Team03BModel.Publisher">
+              <MappingFragment StoreEntitySet="Publisher">
+                <ScalarProperty Name="PublisherID" ColumnName="PublisherID" />
+                <ScalarProperty Name="PublisherName" ColumnName="PublisherName" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SA45Team03BModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
